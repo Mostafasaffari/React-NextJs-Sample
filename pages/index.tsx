@@ -1,10 +1,9 @@
 import { NextComponentType } from "next";
 import fetch from "isomorphic-unfetch";
-import Link from "next/link";
 
 import Layout from "../components/layout";
-//import { useEffect } from "react";
-//import Router from "next/router";
+import Header from "../components/header";
+
 
 import "../assets/css/home/home.css";
 
@@ -26,7 +25,7 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   //   });
   return (
     <Layout>
-     
+      <Header />
     </Layout>
   );
 };
