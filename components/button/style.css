@@ -1,0 +1,24 @@
+.trip-button {
+    width: 105px;
+    height: 48px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 9px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.trip-bg-blue {
+    color: #fafafa;
+    background-color: #5d8bc9;
+}
+
+.trip-bg-gray {
+    color: #373d45;
+    background-color: #edeff2;
+}
+
+.trip-bg-orange {
+    color: #fafafa;
+    background-color: #ff7757;
+}

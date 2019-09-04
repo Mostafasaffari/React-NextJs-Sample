@@ -6,6 +6,7 @@ import Header from "../components/header";
 
 import "../assets/css/home/home.css";
 import Select from "../components/select/select";
+import Button from "../components/button";
 
 interface ICity {
   name: string;
@@ -48,6 +49,7 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
           <Select text={`Duration`} />
           <Select text={`Passengers`} />
           <Select text={`Budget Range`} />
+          <Button color="orange" text="Search"/>
         </div>
       </div>
     </Layout>
