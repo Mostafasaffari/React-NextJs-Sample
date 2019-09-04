@@ -6,6 +6,8 @@ import Layout from "../components/layout";
 //import { useEffect } from "react";
 //import Router from "next/router";
 
+import "../assets/css/home/home.css";
+
 interface ICity {
   name: string;
   slug: string;
@@ -24,12 +26,7 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   //   });
   return (
     <Layout>
-      <h1 className="flex-col bg-gray-500 justify-center">
-        Hello Mostafa{" " + cities[0].name}
-        <Link href="/results" as={"/results"} prefetch>
-          <a className="flex bg-purple-500">Go to results</a>
-        </Link>
-      </h1>
+     
     </Layout>
   );
 };
