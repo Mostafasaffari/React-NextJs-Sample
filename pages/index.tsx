@@ -5,6 +5,7 @@ import Layout from "../components/layout";
 import Header from "../components/header";
 
 import "../assets/css/home/home.css";
+import Select from "../components/select/select";
 
 interface ICity {
   name: string;
@@ -27,7 +28,7 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
       <Header />
       <div
         id="slogan"
-        className="container mx-auto max-w-5xl text-white pt-20 md:pl-10"
+        className="container mx-auto max-w-5xl text-white pt-20 md:pl-10 xl:pl-0"
       >
         <h2 className="text-5xl font-bold tracking-wide">
           Plan Your trip to Iran
@@ -37,7 +38,18 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
           designed by professional tour guides and travelers
         </p>
       </div>
-      <div id="filterDivider" className="h-20 bg-gray-100 mt-10"></div>
+      <div
+        id="filterDivider"
+        className="h-20 bg-gray-100 mt-10 flex items-center"
+      >
+        <div className="container mx-auto max-w-5xl">
+          <Select text={`Destinations`} />
+          <Select text={`Dates`} />
+          <Select text={`Duration`} />
+          <Select text={`Passengers`} />
+          <Select text={`Budget Range`} />
+        </div>
+      </div>
     </Layout>
   );
 };

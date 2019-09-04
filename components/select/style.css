@@ -1,0 +1,13 @@
+.trip-select-wrapper {
+    max-width: 400px;
+    height: 48px;
+    border: 1px solid #e7e8eb;
+    border-radius: 4px;
+    padding: 15px 10px;
+    cursor: pointer;
+    margin-right: 9px;
+}
+
+.trip-select-wrapper span {
+    font-size: 16px;
+}
