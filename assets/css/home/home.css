@@ -1,4 +1,30 @@
-body {
-    background: url("../../images/defaultbg.jpg") no-repeat center center fixed;;
-    background-size: cover;
+.bgdefault::before {
+    background-image: url("../../images/bg-xl.jpg");
+    content: " ";
+    display: flex;
+    position: absolute;
+    z-index: -1;
+    background-repeat: no-repeat;
+    
+    @apply h-screen min-w-full;
+}
+
+@media only screen and (max-width: 1024px) {
+    .bgdefault::before {
+        background-image: url("../../images/bg-md.jpg");
+        background-size: 100% 400px;
+        height: 400px;
+    }
+}
+
+@media only screen and (max-width: 736px) {
+    .bgdefault::before {
+        background-image: url("../../images/bg-sm.jpg");
+        background-size: 100% 180px;
+        height: 180px;
+
+    }
+    #slogan,#filterDivider {
+        display: none;
+    }
 }

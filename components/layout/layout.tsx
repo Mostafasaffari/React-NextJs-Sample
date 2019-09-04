@@ -1,7 +1,10 @@
 import { NextComponentType } from "next";
 import "../../assets/css/main.css";
 
-const Layout: NextComponentType = ({ children }) => {
-  return <>{children}</>;
+interface IProps {
+  className?: string;
+}
+const Layout: NextComponentType<{}, {}, IProps> = ({ children, className }) => {
+  return <div className={className}>{children}</div>;
 };
 export default Layout;

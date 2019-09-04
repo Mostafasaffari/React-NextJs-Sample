@@ -23,9 +23,12 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   //     });
   //   });
   return (
-    <Layout>
+    <Layout className="bgdefault bg-no-repeat xl:bg-cover">
       <Header />
-      <div id="slogan" className="container mx-auto max-w-5xl text-white pt-20">
+      <div
+        id="slogan"
+        className="container mx-auto max-w-5xl text-white pt-20 md:pl-10"
+      >
         <h2 className="text-5xl font-bold tracking-wide">
           Plan Your trip to Iran
         </h2>
@@ -34,9 +37,7 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
           designed by professional tour guides and travelers
         </p>
       </div>
-      <div id="filterDivider" className="h-20 bg-blue-100 mt-10">
-        
-      </div>
+      <div id="filterDivider" className="h-20 bg-gray-100 mt-10"></div>
     </Layout>
   );
 };
