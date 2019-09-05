@@ -1,6 +1,7 @@
 .trip-select-wrapper {
-    max-width: 400px;
-    height: 48px;
+    max-width: 200px;
+    min-height: 48px;
+    height: auto;
     border: 1px solid #e7e8eb;
     border-radius: 4px;
     padding: 15px 10px;
@@ -10,4 +11,9 @@
 
 .trip-select-wrapper span {
     font-size: 16px;
+}
+
+.trip-select-wrapper-blue {
+    color: #fafafa;
+    background-color: #5d8bc9;
 }

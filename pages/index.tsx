@@ -16,6 +16,7 @@ import Button from "../components/button";
 import Box from "../components/box/box";
 
 import "../assets/css/home/home.css";
+import CheckBox from "../components/checkbox/checkbox";
 interface IProps {
   cities: Array<ICity>;
 }
@@ -37,7 +38,7 @@ const Dates = [
 const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   const [showCities, setShowCities] = useState<boolean>(false);
   const [showDates, setShowDates] = useState<boolean>(false);
-  const [selectedCities, setSelectedCities] = useState<ICity[]>([]);
+  const [selectedCities, setSelectedCities] = useState<string[]>([]);
   const [selectedDates, setSelectedDates] = useState<string[]>([]);
 
   const filters = useSelector<IFilter>(state => state.Filters);
@@ -47,10 +48,19 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   const handleShowCities = () => setShowCities(!showCities);
   const handleApplyCitiesFilter = () => {
     dispatch(filterActions.setDistinations(selectedCities));
+    setShowCities(false);
   };
   const handleCancelCitiesFilter = () => {
     setShowCities(false);
     setSelectedCities([]);
+  };
+  const handleSelectCity = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const city = event.target.value;
+    if (!selectedCities.includes(city))
+      setSelectedCities([...selectedCities, city]);
+    else {
+      setSelectedCities([...selectedCities.filter(s => s !== city)]);
+    }
   };
   //#endregion
 
@@ -107,9 +117,15 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
                   </>
                 }
               >
-                {cities.map(item => {
-                  return item.name;
-                })}
+                {cities.map(item => (
+                  <CheckBox
+                    checked={selectedCities.includes(item.slug)}
+                    key={item.slug}
+                    title={item.name}
+                    value={item.slug}
+                    onChange={handleSelectCity}
+                  />
+                ))}
               </Box>
             )}
           </div>

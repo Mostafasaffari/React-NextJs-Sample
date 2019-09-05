@@ -1,10 +1,9 @@
-import { ICity } from "../../interfaces/ICity";
 
 const actions = {
   SET_DISTINATIONS: "SET_DISTINATIONS",
   SET_DATES: "SET_DATES",
 
-  setDistinations: (cities: ICity[]) => ({
+  setDistinations: (cities: string[]) => ({
     type: actions.SET_DISTINATIONS,
     cities
   }),

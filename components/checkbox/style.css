@@ -1,0 +1,10 @@
+.trip-checkbox-wrapper {
+    display: flex;
+    max-width: 250px;
+    justify-content: flex-start;
+}
+
+.trip-checkbox-wrapper span {
+    display: inline-block;
+    margin-left: 8px;
+}
