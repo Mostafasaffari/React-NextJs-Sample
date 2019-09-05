@@ -17,6 +17,7 @@ import Box from "../components/box/box";
 
 import "../assets/css/home/home.css";
 import CheckBox from "../components/checkbox/checkbox";
+import TableCheck from "../components/checkbox/table/tableCheck";
 interface IProps {
   cities: Array<ICity>;
 }
@@ -68,10 +69,20 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   const handleShowDates = () => setShowDates(!showDates);
   const handleApplyDatesFilter = () => {
     dispatch(filterActions.setDates(selectedDates));
+    setShowDates(false);
   };
   const handleCancelDatesFilter = () => {
     setShowDates(false);
     setSelectedDates([]);
+  };
+  const handleSelectDates = (value: string) => (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    if (!selectedDates.includes(value))
+      setSelectedDates([...selectedDates, value]);
+    else {
+      setSelectedDates([...selectedDates.filter(s => s !== value)]);
+    }
   };
   //#endregion
   return (
@@ -130,10 +141,11 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
             )}
           </div>
           <div className="relative">
+            {console.log(filters.dates)}
             <Select
               text={
                 filters.dates.length > 0
-                  ? filters.date.length === 12
+                  ? filters.dates.length === 12
                     ? "All Months"
                     : filters.dates
                   : `Dates`
@@ -142,7 +154,7 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
             />
             {showDates && (
               <Box
-                showBox={showCities}
+                showBox={showDates}
                 footerComponent={
                   <>
                     <Button
@@ -158,7 +170,11 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
                   </>
                 }
               >
-                {Dates.map(item => item)}
+                <TableCheck
+                  titles={Dates}
+                  values={selectedDates}
+                  onClick={handleSelectDates}
+                />
               </Box>
             )}
           </div>

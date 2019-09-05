@@ -1,0 +1,22 @@
+.trip-table-check-wrapper {
+    display: flex;
+    width:100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.trip-table-check-wrapper>div {
+    width: 25%;
+    height: 55px;
+    cursor: pointer;
+}
+
+.trip-table-check-wrapper>div span {
+    display: block;
+    text-align: center;
+    line-height: 55px;
+}
+
+.trip-table-check-wrapper>div span.checked {
+    background-color: #deebff;
+}

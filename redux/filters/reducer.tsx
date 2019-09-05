@@ -13,6 +13,11 @@ export default (state = initState, action): IFilter => {
         ...state,
         cities: [...action.cities]
       };
+      case actions.SET_DATES:
+        return {
+          ...state,
+          dates: [...action.dates]
+        };
     default:
       return state;
   }
