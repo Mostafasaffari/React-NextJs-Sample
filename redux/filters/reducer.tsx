@@ -3,7 +3,8 @@ import { IFilter } from "../../interfaces/IFilter";
 
 const initState: IFilter = {
   cities: [],
-  dates: []
+  dates: [],
+  durations: []
 };
 
 export default (state = initState, action): IFilter => {
@@ -13,11 +14,16 @@ export default (state = initState, action): IFilter => {
         ...state,
         cities: [...action.cities]
       };
-      case actions.SET_DATES:
-        return {
-          ...state,
-          dates: [...action.dates]
-        };
+    case actions.SET_DATES:
+      return {
+        ...state,
+        dates: [...action.dates]
+      };
+    case actions.SET_DURATIONS:
+      return {
+        ...state,
+        durations: [...action.durations]
+      };
     default:
       return state;
   }

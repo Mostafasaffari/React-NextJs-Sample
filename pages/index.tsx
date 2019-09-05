@@ -35,12 +35,15 @@ const Dates = [
   "Nov",
   "Dec"
 ];
+const Durations = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   const [showCities, setShowCities] = useState<boolean>(false);
   const [showDates, setShowDates] = useState<boolean>(false);
+  const [showDuration, setShowDuration] = useState<boolean>(false);
   const [selectedCities, setSelectedCities] = useState<string[]>([]);
   const [selectedDates, setSelectedDates] = useState<string[]>([]);
+  const [selectedDuration, setSelectedDuration] = useState<number[]>([]);
 
   const filters = useSelector<IFilter>(state => state.Filters);
   const dispatch = useDispatch();
@@ -85,6 +88,27 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
     }
   };
   //#endregion
+
+  //#region Cities
+  const handleShowDuration = () => setShowDuration(!showDuration);
+  const handleApplyDurationFilter = () => {
+    dispatch(filterActions.setDurations(selectedDuration));
+    setShowDuration(false);
+  };
+  const handleCancelDurationFilter = () => {
+    setShowDuration(false);
+    setSelectedDuration([]);
+  };
+  const handleSelectDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const duration = parseInt(event.target.value);
+    if (!selectedDuration.includes(duration))
+      setSelectedDuration([...selectedDuration, duration]);
+    else {
+      setSelectedDuration([...selectedDuration.filter(s => s !== duration)]);
+    }
+  };
+  //#endregion
+
   return (
     <Layout className="bgdefault bg-no-repeat xl:bg-cover">
       <Header />
@@ -141,7 +165,6 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
             )}
           </div>
           <div className="relative">
-            {console.log(filters.dates)}
             <Select
               text={
                 filters.dates.length > 0
@@ -179,7 +202,45 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
             )}
           </div>
           <div className="relative">
-            <Select text={`Duration`} />
+            <Select
+              text={
+                filters.durations.length > 0
+                  ? filters.durations.map(item =>
+                      item === 1 ? `${item} Week` : `${item} Weeks`
+                    )
+                  : "Duration"
+              }
+              onClick={handleShowDuration}
+            />
+            {showDuration && (
+              <Box
+                showBox={showDuration}
+                footerComponent={
+                  <>
+                    <Button
+                      color="blue"
+                      text="Apply"
+                      onClick={handleApplyDurationFilter}
+                    ></Button>
+                    <Button
+                      color="gray"
+                      text="Cancel"
+                      onClick={handleCancelDurationFilter}
+                    ></Button>
+                  </>
+                }
+              >
+                {Durations.map(item => (
+                  <CheckBox
+                    checked={selectedDuration.includes(item)}
+                    key={item}
+                    title={item === 1 ? `${item} Week` : `${item} Weeks`}
+                    value={`${item}`}
+                    onChange={handleSelectDuration}
+                  />
+                ))}
+              </Box>
+            )}
           </div>
           <div className="relative">
             <Select text={`Passengers`} />
