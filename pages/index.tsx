@@ -2,8 +2,9 @@ import { useState } from "react";
 import { NextComponentType } from "next";
 import fetch from "isomorphic-unfetch";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useRouter } from "next/router";
 import { BaseContext } from "next-server/dist/lib/utils";
+
 import { ICity } from "../interfaces/ICity";
 import { IFilter } from "../interfaces/IFilter";
 
@@ -48,9 +49,9 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   const [selectedDuration, setSelectedDuration] = useState<number[]>([]);
   const [selectedPassenger, setSelectedPassenger] = useState<number[]>([]);
 
-  const filters = useSelector<IFilter>(state => state.Filters);
+  const filters: IFilter = useSelector<IFilter>(state => state.Filters);
   const dispatch = useDispatch();
-
+  const router = useRouter();
   //#region Cities
   const handleShowCities = () => setShowCities(!showCities);
   const handleApplyCitiesFilter = () => {
@@ -134,6 +135,18 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   };
   //#endregion
 
+  const submitFilters = () => {
+    if (
+      filters.cities.length ||
+      filters.durations.length ||
+      filters.dates.length ||
+      filters.passengers.length
+    ) {
+      router.push("/results");
+    } else {
+      alert("You have to set one filter at least");
+    }
+  };
   return (
     <Layout className="bgdefault bg-no-repeat xl:bg-cover">
       <Header />
@@ -311,7 +324,7 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
             )}
           </div>
           <div className="relative">
-            <Button color="orange" text="Search" />
+            <Button color="orange" text="Search" onClick={submitFilters} />
           </div>
         </div>
       </div>
