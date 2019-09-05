@@ -17,3 +17,29 @@
     color: #fafafa;
     background-color: #5d8bc9;
 }
+
+@media only screen and (max-width: 736px) {
+    .trip-select-wrapper {
+        width: 100%;
+        max-width: 100%;
+        min-height: 48px;
+        border: 1px solid #e7e8eb;
+        border-radius: 4px;
+        padding: 15px 10px;
+        cursor: pointer;
+        display: block;
+        position: relative;
+    }
+    .trip-select-wrapper::after {
+        content: ">";
+        width: 5px;
+        height: 5px;
+        position: absolute;
+        top:20px;
+        right: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #ddd;
+        transform: rotate(-270deg)
+    }
+}

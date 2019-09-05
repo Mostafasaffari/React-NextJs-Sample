@@ -164,9 +164,9 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
       </div>
       <div
         id="filterDivider"
-        className="h-20 bg-gray-100 mt-10 flex items-center"
+        className="mt-32 md:h-20 bg-gray-100 md:mt-10 flex md:items-center md:pl-10 xl:pl-0"
       >
-        <div className="container mx-auto max-w-5xl flex items-center">
+        <div className="container md:mx-auto md:max-w-5xl flex md:items-center">
           <div className="relative">
             <Select
               text={filters.cities.length > 0 ? filters.cities : "Destinations"}

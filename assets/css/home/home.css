@@ -5,7 +5,6 @@
     position: absolute;
     z-index: -1;
     background-repeat: no-repeat;
-    
     @apply h-screen min-w-full;
 }
 
@@ -22,9 +21,18 @@
         background-image: url("../../images/bg-sm.jpg");
         background-size: 100% 180px;
         height: 180px;
-
     }
-    #slogan,#filterDivider {
+    #slogan {
         display: none;
+    }
+    #filterDivider {
+        height: 500px;
+    }
+    #filterDivider>div {
+        flex-direction: column;
+        padding: 10px
+    }
+    #filterDivider>div>div {
+        margin: 10px 0;
     }
 }
