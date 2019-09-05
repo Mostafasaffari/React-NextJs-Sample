@@ -1,29 +1,26 @@
-import { NextComponentType } from "next";
+import { NextComponentType, NextPageContext } from "next";
 import fetch from "isomorphic-unfetch";
+import { useDispatch, useSelector } from "react-redux";
+
+import { BaseContext } from "next-server/dist/lib/utils";
+import { ICity } from "../interfaces/ICity";
+import { IFilter } from "../interfaces/IFilter";
+
+import filterActions from "../redux/filters/actions";
 
 import Layout from "../components/layout";
 import Header from "../components/header";
-
-import "../assets/css/home/home.css";
 import Select from "../components/select/select";
 import Button from "../components/button";
 
-interface ICity {
-  name: string;
-  slug: string;
-  latitude: string;
-  longitude: string;
-}
+import "../assets/css/home/home.css";
 interface IProps {
   cities: Array<ICity>;
 }
 const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
-  //   useEffect(() => {
-  //     Router.beforePopState(({ as }) => {
-  //       location.href = as;
-  //       return false;
-  //     });
-  //   });
+  const filters = useSelector<IFilter>(state => state.Filters);
+  const dispatch = useDispatch();
+
   return (
     <Layout className="bgdefault bg-no-repeat xl:bg-cover">
       <Header />
@@ -49,14 +46,15 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
           <Select text={`Duration`} />
           <Select text={`Passengers`} />
           <Select text={`Budget Range`} />
-          <Button color="orange" text="Search"/>
+          <Button color="orange" text="Search" />
         </div>
       </div>
     </Layout>
   );
 };
 
-Index.getInitialProps = async () => {
+Index.getInitialProps = async ({ reduxStore }: BaseContext) => {
+  console.log(reduxStore, "sdfa");
   const response = await fetch("https://plan.1stquest.com/api/v1/cities");
   const data = await response.json();
   return { cities: data.data };
