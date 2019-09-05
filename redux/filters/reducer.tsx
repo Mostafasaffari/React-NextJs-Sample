@@ -2,7 +2,8 @@ import actions from "./actions";
 import { IFilter } from "../../interfaces/IFilter";
 
 const initState: IFilter = {
-  cities: []
+  cities: [],
+  dates: []
 };
 
 export default (state = initState, action): IFilter => {
@@ -10,7 +11,7 @@ export default (state = initState, action): IFilter => {
     case actions.SET_DISTINATIONS:
       return {
         ...state,
-        cities: [...state.cities, action.city]
+        cities: [...action.cities]
       };
     default:
       return state;
