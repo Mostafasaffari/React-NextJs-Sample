@@ -4,7 +4,8 @@ import { IFilter } from "../../interfaces/IFilter";
 const initState: IFilter = {
   cities: [],
   dates: [],
-  durations: []
+  durations: [],
+  passengers: []
 };
 
 export default (state = initState, action): IFilter => {
@@ -23,6 +24,11 @@ export default (state = initState, action): IFilter => {
       return {
         ...state,
         durations: [...action.durations]
+      };
+    case actions.SET_PASSENGERS:
+      return {
+        ...state,
+        passengers: [...action.passengers]
       };
     default:
       return state;

@@ -36,14 +36,17 @@ const Dates = [
   "Dec"
 ];
 const Durations = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const Passengers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   const [showCities, setShowCities] = useState<boolean>(false);
   const [showDates, setShowDates] = useState<boolean>(false);
   const [showDuration, setShowDuration] = useState<boolean>(false);
+  const [showPassenger, setShowPassenger] = useState<boolean>(false);
   const [selectedCities, setSelectedCities] = useState<string[]>([]);
   const [selectedDates, setSelectedDates] = useState<string[]>([]);
   const [selectedDuration, setSelectedDuration] = useState<number[]>([]);
+  const [selectedPassenger, setSelectedPassenger] = useState<number[]>([]);
 
   const filters = useSelector<IFilter>(state => state.Filters);
   const dispatch = useDispatch();
@@ -89,7 +92,7 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   };
   //#endregion
 
-  //#region Cities
+  //#region Durations
   const handleShowDuration = () => setShowDuration(!showDuration);
   const handleApplyDurationFilter = () => {
     dispatch(filterActions.setDurations(selectedDuration));
@@ -105,6 +108,28 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
       setSelectedDuration([...selectedDuration, duration]);
     else {
       setSelectedDuration([...selectedDuration.filter(s => s !== duration)]);
+    }
+  };
+  //#endregion
+
+  //#region Passengers
+  const handleShowPassenger = () => setShowPassenger(!showPassenger);
+  const handleApplyPassengerFilter = () => {
+    dispatch(filterActions.setPassengers(selectedPassenger));
+    setShowPassenger(false);
+  };
+  const handleCancelPassengerFilter = () => {
+    setShowPassenger(false);
+    setSelectedPassenger([]);
+  };
+  const handleSelectPassenger = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const passenger = parseInt(event.target.value);
+    if (!selectedPassenger.includes(passenger))
+      setSelectedPassenger([...selectedPassenger, passenger]);
+    else {
+      setSelectedPassenger([...selectedPassenger.filter(s => s !== passenger)]);
     }
   };
   //#endregion
@@ -243,10 +268,47 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
             )}
           </div>
           <div className="relative">
-            <Select text={`Passengers`} />
-          </div>
-          <div className="relative">
-            <Select text={`Budget Range`} />
+            <Select
+              text={
+                filters.passengers.length > 0
+                  ? filters.passengers.map(item =>
+                      item === 1 ? `${item} Passenger` : `${item} Passengers`
+                    )
+                  : "Passengers"
+              }
+              onClick={handleShowPassenger}
+            />
+            {showPassenger && (
+              <Box
+                showBox={showPassenger}
+                footerComponent={
+                  <>
+                    <Button
+                      color="blue"
+                      text="Apply"
+                      onClick={handleApplyPassengerFilter}
+                    ></Button>
+                    <Button
+                      color="gray"
+                      text="Cancel"
+                      onClick={handleCancelPassengerFilter}
+                    ></Button>
+                  </>
+                }
+              >
+                {Passengers.map(item => (
+                  <CheckBox
+                    checked={selectedPassenger.includes(item)}
+                    key={item}
+                    title={
+                      item === 1 ? `${item} Passenger` : `${item} Passengers`
+                    }
+                    value={`${item}`}
+                    onChange={handleSelectPassenger}
+                  />
+                ))}
+              </Box>
+            )}
           </div>
           <div className="relative">
             <Button color="orange" text="Search" />
