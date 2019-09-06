@@ -1,17 +1,16 @@
 import { NextComponentType } from "next";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-
 import { BaseContext } from "next-server/dist/lib/utils";
 
 import { ICity } from "../interfaces/ICity";
 import { IFilter } from "../interfaces/IFilter";
 
+import { getCities } from "../services/apiItinerary";
+
 import filterActions from "../redux/filters/actions";
 
 import Layout from "../components/layout";
 import Header from "../components/header";
-
 import Filters from "../components/complexComponents/filters/filters";
 
 import "../assets/css/home.css";
@@ -63,9 +62,9 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   );
 };
 
-Index.getInitialProps = async ({ reduxStore }: BaseContext) => {
-  const response = await axios.get("https://plan.1stquest.com/api/v1/cities");
-  return { cities: response.data.data };
+Index.getInitialProps = async () => {
+  const cities = await getCities();
+  return { cities };
 };
 
 export default Index;

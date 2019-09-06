@@ -33,9 +33,19 @@ const CardInfo: NextComponentType<{}, {}, IProps> = ({
       </h4>
       <span>From ${price} per person</span>
       <div className="images">
-        {images.map(item => (
-          <img src={item.src} alt={item.alt} />
-        ))}
+        {images.map((item, index) => {
+          if (index === 3)
+            return (
+              <a href="#morePicture" key={index} id="morePicture">
+                <img
+                  src={require("../../../assets/images/blankImage.png")}
+                  alt={item.alt}
+                />
+              </a>
+            );
+          else if (index >= 4) return null;
+          else return <img src={item.src} alt={item.alt} key={index} />;
+        })}
       </div>
     </div>
   );

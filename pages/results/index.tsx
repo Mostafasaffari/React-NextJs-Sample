@@ -10,6 +10,8 @@ import { ICity } from "../../interfaces/ICity";
 
 import filterActions from "../../redux/filters/actions";
 
+import { getItinerariesByFilters } from "../../services/apiItinerary";
+
 import Layout from "../../components/layout";
 import Filters from "../../components/complexComponents/filters/filters";
 
@@ -36,18 +38,14 @@ const Results: NextComponentType<{}, {}, IProps> = ({ cities, result }) => {
       router.push("/");
     }
     const newResult = async () => {
-      const citiesStr = filters.cities.length
-        ? `cities[]=${filters.cities.join("&cities[]=")}`
-        : "";
-      const resultResponse = await axios.get(
-        `https://plan.1stquest.com/api/v1/itineraries?${citiesStr}`
-      );
-      return resultResponse.data.data;
+      const resultResponse = await getItinerariesByFilters(filters);
+      return resultResponse;
     };
     newResult().then(data => {
+      // TODO: Set Loading for data fetch
       setSearchResults(data);
     });
-  }, [filters, result]);
+  }, [filters]);
 
   const setDistinationsFilter = selectedCities => {
     dispatch(filterActions.setDistinations(selectedCities));
@@ -70,6 +68,9 @@ const Results: NextComponentType<{}, {}, IProps> = ({ cities, result }) => {
   ) {
     return null;
   }
+  if (!searchResults) {
+    return null; // TODO: set a beautiful Loading here
+  }
   return (
     <Layout>
       <div className="pl-5 flex items-center h-20">
@@ -91,12 +92,13 @@ const Results: NextComponentType<{}, {}, IProps> = ({ cities, result }) => {
         <div className="results">
           <h2>Plans for 2019 Summer</h2>
           {searchResults.map(item =>
-            item.cities.map(city => (
+            item.cities.map((city, index) => (
               <CardInfo
                 cities={item.cities.map(city => city.name)}
                 days={city.days}
                 images={city.images}
                 price={item.totalPrice}
+                key={index}
               />
             ))
           )}
@@ -108,21 +110,12 @@ const Results: NextComponentType<{}, {}, IProps> = ({ cities, result }) => {
 };
 
 Results.getInitialProps = async ({ reduxStore }: BaseContext) => {
-  const filters = reduxStore.getState().Filters;
-  const citiesStr = filters.cities.length
-    ? `cities[]=${filters.cities.join("&cities[]=")}`
-    : "";
+  //  const filters = reduxStore.getState().Filters;
   const citiesResponse = await axios.get(
     "https://plan.1stquest.com/api/v1/cities"
   );
-
-  const resultResponse = await axios.get(
-    `https://plan.1stquest.com/api/v1/itineraries?${citiesStr}`
-  );
-
   return {
-    cities: citiesResponse.data.data as ICity,
-    result: resultResponse.data.data as IItinerary
+    cities: citiesResponse.data.data as ICity
   };
 };
 export default Results;
