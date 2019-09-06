@@ -17,7 +17,7 @@ const TableCheck: NextComponentType<{}, {}, IProps> = ({
     <div className="trip-table-check-wrapper">
       {titles.map((item, index) => (
         <div key={index} onClick={onClick(item)}>
-          <span className={values.includes(item) && "checked"}>{item}</span>
+          <span className={values.includes(item) ? "checked" : ""}>{item}</span>
         </div>
       ))}
     </div>
