@@ -1,5 +1,5 @@
 import { NextComponentType } from "next";
-import fetch from "isomorphic-unfetch";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 import { BaseContext } from "next-server/dist/lib/utils";
@@ -12,8 +12,9 @@ import filterActions from "../redux/filters/actions";
 import Layout from "../components/layout";
 import Header from "../components/header";
 
-import "../assets/css/home/home.css";
 import Filters from "../components/complexComponents/filters/filters";
+
+import "../assets/css/home.css";
 
 interface IProps {
   cities: Array<ICity>;
@@ -35,13 +36,12 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
   const setPassengersFilter = selectedPassenger => {
     dispatch(filterActions.setPassengers(selectedPassenger));
   };
-
   return (
     <Layout className="bgdefault bg-no-repeat xl:bg-cover">
       <Header />
       <div
         id="slogan"
-        className="container mx-auto max-w-5xl text-white pt-20 md:pl-10 xl:pl-0"
+        className="container mx-auto max-w-5xl text-white pt-20 md:pl-10 xl:pl-0 md:mb-10"
       >
         <h2 className="text-5xl font-bold tracking-wide">
           Plan Your trip to Iran
@@ -64,9 +64,8 @@ const Index: NextComponentType<{}, {}, IProps> = ({ cities }) => {
 };
 
 Index.getInitialProps = async ({ reduxStore }: BaseContext) => {
-  const response = await fetch("https://plan.1stquest.com/api/v1/cities");
-  const data = await response.json();
-  return { cities: data.data };
+  const response = await axios.get("https://plan.1stquest.com/api/v1/cities");
+  return { cities: response.data.data };
 };
 
 export default Index;

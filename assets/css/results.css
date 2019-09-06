@@ -1,0 +1,17 @@
+.result-container{
+    display: flex;
+    width: 100%;
+    
+}
+.result-container .results{
+    width:40%;
+}
+.result-container .results h2{
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 15px ;
+}
+.result-container .maps{
+    width: 60%;
+}

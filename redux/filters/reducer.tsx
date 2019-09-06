@@ -2,7 +2,7 @@ import actions from "./actions";
 import { IFilter } from "../../interfaces/IFilter";
 
 const initState: IFilter = {
-  cities: [],
+  cities: ["tehran"],
   dates: [],
   durations: [],
   passengers: []

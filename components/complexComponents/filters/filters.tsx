@@ -10,6 +10,8 @@ import Box from "../../box";
 import { IFilter } from "../../../interfaces/IFilter";
 import { ICity } from "../../../interfaces/ICity";
 
+import "./style.css";
+
 const Dates = [
   "Jan",
   "Feb",
@@ -30,6 +32,7 @@ const Passengers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 interface IProps {
   filters: IFilter;
   cities: ICity[];
+  showSubmitButton?: boolean;
   setDistinationsFilter: (selectedCities: string[]) => void;
   setDatesFilter: (selectedDates: string[]) => void;
   setDurationsFilter: (selectedDuration: number[]) => void;
@@ -38,6 +41,7 @@ interface IProps {
 const Filters: NextComponentType<{}, {}, IProps> = ({
   filters,
   cities,
+  showSubmitButton = true,
   setDistinationsFilter,
   setDatesFilter,
   setDurationsFilter,
@@ -47,10 +51,10 @@ const Filters: NextComponentType<{}, {}, IProps> = ({
   const [showDates, setShowDates] = useState<boolean>(false);
   const [showDuration, setShowDuration] = useState<boolean>(false);
   const [showPassenger, setShowPassenger] = useState<boolean>(false);
-  const [selectedCities, setSelectedCities] = useState<string[]>([]);
-  const [selectedDates, setSelectedDates] = useState<string[]>([]);
-  const [selectedDuration, setSelectedDuration] = useState<number[]>([]);
-  const [selectedPassenger, setSelectedPassenger] = useState<number[]>([]);
+  const [selectedCities, setSelectedCities] = useState<string[]>(filters.cities);
+  const [selectedDates, setSelectedDates] = useState<string[]>(filters.dates);
+  const [selectedDuration, setSelectedDuration] = useState<number[]>(filters.durations);
+  const [selectedPassenger, setSelectedPassenger] = useState<number[]>(filters.passengers);
   const router = useRouter();
   //#region Cities
   const handleShowCities = () => setShowCities(!showCities);
@@ -150,7 +154,7 @@ const Filters: NextComponentType<{}, {}, IProps> = ({
   return (
     <div
       id="filterDivider"
-      className="mt-32 md:h-20 bg-gray-100 md:mt-10 flex md:items-center md:pl-10 xl:pl-0"
+      className="h-16 flex md:items-center md:pl-10 xl:pl-0"
     >
       <div className="container md:mx-auto md:max-w-5xl flex md:items-center">
         <div className="relative">
@@ -309,9 +313,11 @@ const Filters: NextComponentType<{}, {}, IProps> = ({
             </Box>
           )}
         </div>
-        <div className="relative">
-          <Button color="orange" text="Search" onClick={submitFilters} />
-        </div>
+        {showSubmitButton && (
+          <div className="relative">
+            <Button color="orange" text="Search" onClick={submitFilters} />
+          </div>
+        )}
       </div>
     </div>
   );

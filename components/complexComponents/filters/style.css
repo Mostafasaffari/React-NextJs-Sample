@@ -1,0 +1,17 @@
+#filterDivider {
+    border: solid 1px #eaf0f4;
+    background-color: #fafafa;
+}
+
+@media only screen and (max-width: 736px) {
+    #filterDivider {
+        height: 500px;
+    }
+    #filterDivider>div {
+        flex-direction: column;
+        padding: 10px
+    }
+    #filterDivider>div>div {
+        margin: 10px 0;
+    }
+}
