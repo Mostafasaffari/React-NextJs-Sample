@@ -1,6 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Map from "pigeon-maps";
+import Overlay from "pigeon-overlay";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BaseContext, NextComponentType } from "next-server/dist/lib/utils";
 
@@ -24,6 +26,7 @@ interface IProps {
 }
 const Results: NextComponentType<{}, {}, IProps> = ({ cities, result }) => {
   const [searchResults, setSearchResults] = useState<IItinerary[]>(result);
+  const [showMap, setShowMap] = useState<boolean>(false);
   const filters: IFilter = useSelector<IFilter>(state => state.Filters);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -103,7 +106,31 @@ const Results: NextComponentType<{}, {}, IProps> = ({ cities, result }) => {
             ))
           )}
         </div>
-        <div className="maps"></div>
+        <div className="maps">
+          <Map
+            defaultCenter={[33.6416913, 53.6375954]}
+            defaultZoom={5}
+            width={600}
+            height={400}
+          >
+            {searchResults.map(item => {
+              return item.cities.map((city, index) => {
+                console.log(parseFloat(city.latitude),parseFloat(city.longitude));
+
+                return (
+                  <Overlay anchor={[parseFloat(city.latitude),parseFloat(city.longitude)]} key={index}>
+                    <img
+                      src={require("../../assets/images/pin.png")}
+                      width={32}
+                      height={32}
+                      alt=""
+                    />
+                  </Overlay>
+                );
+              });
+            })}
+          </Map>
+        </div>
       </div>
     </Layout>
   );
