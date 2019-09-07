@@ -1,17 +1,37 @@
-.result-container{
+.result-container {
     display: flex;
     width: 100%;
-    
 }
-.result-container .results{
-    width:40%;
+
+.result-container .results {
+    width: 40%;
 }
-.result-container .results h2{
+
+.result-container .results h2 {
     font-size: 18px;
     font-weight: bold;
     letter-spacing: 2px;
-    padding: 15px ;
+    padding: 15px;
 }
-.result-container .maps{
+
+.result-container .maps {
     width: 60%;
+}
+
+@media only screen and (max-width: 1024px) {
+    .result-container .results {
+        width: 70%;
+    }
+    .result-container .maps {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 736px) {
+    .result-container .results {
+        width: 100%;
+    }
+    .result-container .maps {
+        display: none;
+    }
 }
