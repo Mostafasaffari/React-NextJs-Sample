@@ -113,22 +113,24 @@ const Results: NextComponentType<{}, {}, IProps> = ({ cities, result }) => {
             width={600}
             height={400}
           >
-            {searchResults.map(item => {
-              return item.cities.map((city, index) => {
-                console.log(parseFloat(city.latitude),parseFloat(city.longitude));
-
-                return (
-                  <Overlay anchor={[parseFloat(city.latitude),parseFloat(city.longitude)]} key={index}>
-                    <img
-                      src={require("../../assets/images/pin.png")}
-                      width={32}
-                      height={32}
-                      alt=""
-                    />
-                  </Overlay>
-                );
-              });
-            })}
+            {searchResults.map(item =>
+              item.cities.map((city, index) => (
+                <Overlay
+                  anchor={[
+                    parseFloat(city.latitude),
+                    parseFloat(city.longitude)
+                  ]}
+                  key={index}
+                >
+                  <img
+                    src={require("../../assets/images/pin.png")}
+                    width={32}
+                    height={32}
+                    alt=""
+                  />
+                </Overlay>
+              ))
+            )}
           </Map>
         </div>
       </div>
