@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import Map from "pigeon-maps";
 import Overlay from "pigeon-overlay";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BaseContext, NextComponentType } from "next-server/dist/lib/utils";
@@ -15,10 +16,10 @@ import filterActions from "../../redux/filters/actions";
 import { getItinerariesByFilters } from "../../services/apiItinerary";
 
 import Layout from "../../components/layout";
+import CardInfo from "../../components/cards/info/info";
 import Filters from "../../components/complexComponents/filters/filters";
 
 import "../../assets/css/results.css";
-import CardInfo from "../../components/cards/info/info";
 
 interface IProps {
   cities: Array<ICity>;
@@ -96,13 +97,16 @@ const Results: NextComponentType<{}, {}, IProps> = ({ cities, result }) => {
           <h2>Plans for 2019 Summer</h2>
           {searchResults.map(item =>
             item.cities.map((city, index) => (
-              <CardInfo
-                cities={item.cities.map(city => city.name)}
-                days={city.days}
-                images={city.images}
-                price={item.totalPrice}
-                key={index}
-              />
+              <Link href={`/detail/${city.slug}`} key={index}>
+                <a>
+                  <CardInfo
+                    cities={item.cities.map(city => city.name)}
+                    days={city.days}
+                    images={city.images}
+                    price={item.totalPrice}
+                  />
+                </a>
+              </Link>
             ))
           )}
         </div>

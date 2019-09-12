@@ -14,5 +14,11 @@ const getItinerariesByFilters = async (filters: IFilter) => {
   );
   return response.data.data;
 };
+const getItinerariesBySlug = async (slug: string) => {
+  const response = await axios.get(
+    `https://plan.1stquest.com/api/v1/itinerary/${slug}`
+  );
+  return response.data.data;
+};
 
-export { getCities, getItinerariesByFilters };
+export { getCities, getItinerariesByFilters, getItinerariesBySlug };
