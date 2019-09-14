@@ -1,0 +1,112 @@
+.bgdefault::before {
+    background-image: url("../images/bg-xl.jpg");
+    content: " ";
+    display: flex;
+    position: absolute;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: 100% 550px;
+    height: 550px;
+    width: 100%;
+}
+
+.strat-timeline {
+    position: relative;
+}
+
+.timeline {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.start-timeline {
+    width: 1024px;
+    display: flex;
+    position: relative;
+}
+
+.start-timeline span {
+    margin-right: 3px;
+    color: white;
+    font-size: 15px;
+}
+
+.start-timeline::before {
+    content: "";
+    display: flex;
+    width: 14px;
+    height: 14px;
+    border: solid 2px #d9e0e6;
+    border-radius: 50%;
+    background-color: transparent;
+    position: absolute;
+    left: 94px;
+    top: 6px;
+}
+
+.start-timeline::after {
+    content: "";
+    display: flex;
+    height: 96px;
+    border-left: 2px dashed white;
+    position: absolute;
+    left: 100px;
+    top: 21px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .bgdefault::before {
+        background-image: url("../images/bg-md.jpg");
+        background-size: 100% 550px;
+        height: 550px;
+    }
+    .start-timeline {
+        width: 700px;
+        display: flex;
+        position: relative;
+    }
+    .start-timeline span {
+        margin-right: 3px;
+        color: white;
+        font-size: 15px;
+        position: absolute;
+        left: 18px;
+    }
+    
+    .start-timeline::before {
+        content: "";
+        display: flex;
+        width: 14px;
+        height: 14px;
+        border: solid 2px #d9e0e6;
+        border-radius: 50%;
+        background-color: transparent;
+        position: absolute;
+        left: 4px;
+        top: 6px;
+    }
+    
+    .start-timeline::after {
+        content: "";
+        display: flex;
+        height: 96px;
+        border-left: 2px dashed white;
+        position: absolute;
+        left: 10px;
+        top: 21px;
+    }
+}
+
+@media only screen and (max-width: 736px) {
+    .bgdefault::before {
+        background-image: url("../images/bg-sm.jpg");
+        background-size: 100% 550px;
+        height: 550px;
+    }
+    .start-timeline {
+        width: 600px;
+        display: flex;
+        position: relative;
+    }
+}
